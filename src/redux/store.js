@@ -27,7 +27,6 @@ const persistConfig = {
   storage,
   blacklist: ['filter'],
 };
-
 const store = configureStore({
   reducer: { contacts: persistReducer(persistConfig, contactsReducer) },
   middleware,

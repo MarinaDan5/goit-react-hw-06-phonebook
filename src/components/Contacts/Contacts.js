@@ -1,8 +1,17 @@
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { filterContacts } from '../../redux/contacts-selectors';
 
 import contactsActions from '../../redux/contacts-actions';
 
-function Contacts({ contacts, onDelete }) {
+export default function Contacts() {
+  // const contacts = useSelector(state =>
+  //   filterContacts(state.contacts.items, state.contacts.filter),
+  // );
+
+  const contacts = useSelector(filterContacts);
+  const dispatch = useDispatch();
+  const onDelete = id => dispatch(contactsActions.delContacts(id));
+
   console.log(contacts);
   return (
     <ul className="contact-list">
@@ -20,18 +29,18 @@ function Contacts({ contacts, onDelete }) {
     </ul>
   );
 }
-const filterContacts = (allContacts, filter) => {
-  return allContacts.filter(contact =>
-    contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()),
-  );
-};
+// const filterContacts = (allContacts, filter) => {
+//   return allContacts.filter(contact =>
+//     contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()),
+//   );
+// };
 
-const mapStateToPrors = ({ contacts: { items, filter } }) => ({
-  contacts: filterContacts(items, filter),
-});
+// const mapStateToPrors = ({ contacts: { items, filter } }) => ({
+//   contacts: filterContacts(items, filter),
+// });
 
-const mapDispatchToPrors = dispatch => ({
-  onDelete: id => dispatch(contactsActions.delContacts(id)),
-});
+// const mapDispatchToPrors = dispatch => ({
+//   onDelete: id => dispatch(contactsActions.delContacts(id)),
+// });
 
-export default connect(mapStateToPrors, mapDispatchToPrors)(Contacts);
+// export default connect(mapStateToPrors, mapDispatchToPrors)(Contacts);
